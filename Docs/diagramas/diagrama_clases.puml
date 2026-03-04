@@ -1,0 +1,46 @@
+@startuml
+title Diagrama de Clases - Sistema de Gestión de Tienda
+
+class Producto {
+    +int Id
+    +string Nombre
+    +decimal Precio
+    +int Stock
+    +string Categoria
+    --
+    +ActualizarStock(cantidad:int)
+    +ActualizarPrecio(nuevoPrecio:decimal)
+}
+
+class Cliente {
+    +int Id
+    +string NombreCompleto
+    +string Documento
+    +string Email
+    --
+    +RegistrarCliente()
+}
+
+class Venta {
+    +int Id
+    +DateTime Fecha
+    +decimal Total
+    --
+    +CalcularTotal()
+    +RegistrarVenta()
+}
+
+class DetalleVenta {
+    +int Id
+    +int Cantidad
+    +decimal PrecioUnitario
+    +decimal Subtotal
+    --
+    +CalcularSubtotal()
+}
+
+Venta "1" *-- "1..*" DetalleVenta : contiene
+Producto "1" -- "0..*" DetalleVenta : pertenece
+Cliente "1" -- "0..*" Venta : realiza
+
+@enduml
