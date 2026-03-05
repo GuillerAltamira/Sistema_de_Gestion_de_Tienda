@@ -1,0 +1,20 @@
+@startuml
+title Diagrama de Casos de Uso - Sistema de Gestión de Tienda
+
+actor Administrador
+actor Vendedor
+
+rectangle Sistema {
+
+    Administrador -- (Registrar Producto)
+    Administrador -- (Actualizar Producto)
+    Administrador -- (Eliminar Producto)
+
+    Vendedor -- (Registrar Cliente)
+    Vendedor -- (Registrar Venta)
+
+    (Registrar Venta) .> (Validar Stock) : <<include>>
+    (Registrar Venta) .> (Descontar Stock) : <<include>>
+}
+
+@enduml
