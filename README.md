@@ -1,7 +1,5 @@
 # 🏪 Sistema de Gestión de Tienda
 
-## 📌 Sprint 0 – Backlog Inicial
-
 ## 👨🏻‍💻 Integrante A – Guillermo
 
 ### HU-01 – Registrar Producto
