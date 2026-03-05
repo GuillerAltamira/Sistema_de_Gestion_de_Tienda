@@ -1,0 +1,26 @@
+@model TecnoVenta.Models.Producto
+
+<h2>Registrar Producto</h2>
+
+<form method="post">
+
+<label>Nombre</label>
+<input asp-for="Nombre" />
+
+<br>
+
+<label>Precio</label>
+<input asp-for="Precio" />
+
+<br>
+
+<label>Stock</label>
+<input asp-for="Stock" />
+
+<br><br>
+
+<button type="submit">Guardar</button>
+
+</form>
+
+<a href="/Productos">Volver</a>
