@@ -1,0 +1,28 @@
+@model TecnoVenta.Models.Producto
+
+<h2>Editar Producto</h2>
+
+<form method="post">
+
+<input type="hidden" asp-for="Id" />
+
+<label>Nombre</label>
+<input asp-for="Nombre" />
+
+<br>
+
+<label>Precio</label>
+<input asp-for="Precio" />
+
+<br>
+
+<label>Stock</label>
+<input asp-for="Stock" />
+
+<br><br>
+
+<button type="submit">Actualizar</button>
+
+</form>
+
+<a href="/Productos">Volver</a>

@@ -1,32 +1,37 @@
+using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using TecnoVenta.Models;
 
 namespace TecnoVenta.Data
 {
     public class ProductoDAO
     {
-        Conexion conexion = new Conexion();
+        string conexion = Conexion.cadena;
 
+        // LISTAR PRODUCTOS
         public List<Producto> ObtenerProductos()
         {
             List<Producto> lista = new List<Producto>();
 
-            using (SqlConnection conn = conexion.ObtenerConexion())
+            using (SqlConnection conn = new SqlConnection(conexion))
             {
-                string query = "SELECT * FROM Productos";
+                string sql = "SELECT * FROM Productos";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
+                SqlCommand cmd = new SqlCommand(sql, conn);
 
-                while (reader.Read())
+                conn.Open();
+
+                SqlDataReader lector = cmd.ExecuteReader();
+
+                while (lector.Read())
                 {
                     Producto p = new Producto();
 
-                    p.Id = (int)reader["Id"];
-                    p.Nombre = reader["Nombre"].ToString();
-                    p.Precio = (decimal)reader["Precio"];
-                    p.Stock = (int)reader["Stock"];
+                    p.Id = Convert.ToInt32(lector["Id"]);
+                    p.Nombre = lector["Nombre"].ToString();
+                    p.Precio = Convert.ToDecimal(lector["Precio"]);
+                    p.Stock = Convert.ToInt32(lector["Stock"]);
 
                     lista.Add(p);
                 }
@@ -35,50 +40,59 @@ namespace TecnoVenta.Data
             return lista;
         }
 
-        public void AgregarProducto(Producto producto)
+        // AGREGAR PRODUCTO
+        public void AgregarProducto(Producto p)
         {
-            using (SqlConnection conn = conexion.ObtenerConexion())
+            using (SqlConnection conn = new SqlConnection(conexion))
             {
-                string query = "INSERT INTO Productos (Nombre, Precio, Stock) VALUES (@nombre,@precio,@stock)";
+                string sql = "INSERT INTO Productos (Nombre,Precio,Stock) VALUES (@nombre,@precio,@stock)";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlCommand cmd = new SqlCommand(sql, conn);
 
-                cmd.Parameters.AddWithValue("@nombre", producto.Nombre);
-                cmd.Parameters.AddWithValue("@precio", producto.Precio);
-                cmd.Parameters.AddWithValue("@stock", producto.Stock);
+                cmd.Parameters.AddWithValue("@nombre", p.Nombre);
+                cmd.Parameters.AddWithValue("@precio", p.Precio);
+                cmd.Parameters.AddWithValue("@stock", p.Stock);
+
+                conn.Open();
 
                 cmd.ExecuteNonQuery();
             }
         }
 
-        public void ActualizarProducto(Producto producto)
-        {
-            using (SqlConnection conn = conexion.ObtenerConexion())
-            {
-                string query = "UPDATE Productos SET Nombre=@nombre, Precio=@precio, Stock=@stock WHERE Id=@id";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@id", producto.Id);
-                cmd.Parameters.AddWithValue("@nombre", producto.Nombre);
-                cmd.Parameters.AddWithValue("@precio", producto.Precio);
-                cmd.Parameters.AddWithValue("@stock", producto.Stock);
-
-                cmd.ExecuteNonQuery();
-            }
-        }
-
+        // ELIMINAR PRODUCTO
         public void EliminarProducto(int id)
         {
-            using (SqlConnection conn = conexion.ObtenerConexion())
+            using (SqlConnection conn = new SqlConnection(conexion))
             {
-                string query = "DELETE FROM Productos WHERE Id=@id";
+                string sql = "DELETE FROM Productos WHERE Id=@id";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
                 cmd.Parameters.AddWithValue("@id", id);
+
+                conn.Open();
 
                 cmd.ExecuteNonQuery();
             }
         }
+        // ACTUALIZAR PRODUCTO
+public void ActualizarProducto(Producto p)
+{
+    using (SqlConnection conn = new SqlConnection(conexion))
+    {
+        string sql = "UPDATE Productos SET Nombre=@nombre, Precio=@precio, Stock=@stock WHERE Id=@id";
+
+        SqlCommand cmd = new SqlCommand(sql, conn);
+
+        cmd.Parameters.AddWithValue("@id", p.Id);
+        cmd.Parameters.AddWithValue("@nombre", p.Nombre);
+        cmd.Parameters.AddWithValue("@precio", p.Precio);
+        cmd.Parameters.AddWithValue("@stock", p.Stock);
+
+        conn.Open();
+
+        cmd.ExecuteNonQuery();
+    }
+}
     }
 }
