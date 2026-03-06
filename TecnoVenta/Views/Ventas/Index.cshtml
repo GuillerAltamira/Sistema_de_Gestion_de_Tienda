@@ -1,0 +1,26 @@
+@model List<TecnoVenta.Models.Venta>
+
+
+<h2>Lista de Ventas</h2>
+<a href="/Ventas/Crear">Nueva Venta</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>ClienteId</th>
+        <th>ProductoId</th>
+        <th>Cantidad</th>
+        <th>Fecha</th>
+        <th>Total</th>
+    </tr>
+    @foreach(var v in Model) {
+        <tr>
+            <td>@v.Id</td>
+            <td>@v.ClienteId</td>
+            <td>@v.ProductoId</td>
+            <td>@v.Cantidad</td>
+            <td>@v.Fecha.ToString("dd/MM/yyyy")</td>
+            <td>@v.Total</td>
+        </tr>
+    }
+</table>

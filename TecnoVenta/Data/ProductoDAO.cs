@@ -94,5 +94,17 @@ public void ActualizarProducto(Producto p)
         cmd.ExecuteNonQuery();
     }
 }
+public void DescontarStock(int productoId, int cantidad)
+{
+    using (SqlConnection conn = new SqlConnection(Conexion.cadena))
+    {
+        conn.Open();
+        string sql = "UPDATE Productos SET Stock = Stock - @cantidad WHERE Id = @id";
+        SqlCommand cmd = new SqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("@cantidad", cantidad);
+        cmd.Parameters.AddWithValue("@id", productoId);
+        cmd.ExecuteNonQuery();
+    }
+}
     }
 }
