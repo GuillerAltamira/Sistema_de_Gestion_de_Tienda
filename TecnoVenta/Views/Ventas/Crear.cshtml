@@ -1,6 +1,17 @@
 @model TecnoVenta.Models.Venta
 
 <h2>Registrar Venta</h2>
+
+@if(ViewBag.Error != null) 
+{
+    <p style="color:red">@ViewBag.Error</p>
+}
+@if(TempData["Success"] != null) 
+{
+    <p style="color:green">@TempData["Success"]</p>
+}
+
+
 <form method="post">
     <label>ClienteId</label>
     <input type="number" name="ClienteId" required />
