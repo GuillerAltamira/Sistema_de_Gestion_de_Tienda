@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TecnoVenta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e1dd0093dc0a2a80ccb5e1c4bc58fc5f3e686f2c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af6bbf9c2bfebc9364826394bd3b4af8143765f1")]
 [assembly: System.Reflection.AssemblyProductAttribute("TecnoVenta")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TecnoVenta")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
