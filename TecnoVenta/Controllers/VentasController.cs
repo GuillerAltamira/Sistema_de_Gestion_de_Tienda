@@ -24,19 +24,26 @@ namespace TecnoVenta.Controllers
         }
 
         [HttpPost]
-        public IActionResult Crear(Venta venta)
-        {
-            // ⚡ Calcular total
-            var producto = productoDAO.ObtenerProductos().Find(p => p.Id == venta.ProductoId);
-            venta.Total = producto.Precio * venta.Cantidad;
+public IActionResult Crear(Venta venta)
+{
+    // ⚡ Calcular total
+    var producto = productoDAO.ObtenerProductos().Find(p => p.Id == venta.ProductoId);
+    venta.Total = producto.Precio * venta.Cantidad;
 
-            // ⚡ Guardar venta
-            ventaDAO.AgregarVenta(venta);
+    // ⚡ Guardar venta con validación de stock
+    bool ok = ventaDAO.AgregarVenta(venta);
+    if (!ok)
+    {
+        ViewBag.Error = "No hay stock suficiente para el producto.";
+        ViewBag.Clientes = clienteDAO.ObtenerClientes();
+        ViewBag.Productos = productoDAO.ObtenerProductos();
+        return View(venta); // 👈 vuelve a la vista Crear mostrando el error
+    }
 
-            // ⚡ HU-05: Descontar stock vendrá aquí después
+    TempData["Success"] = "Venta registrada correctamente.";
+    return RedirectToAction("Index");
+}
 
-            TempData["Success"] = "Venta registrada correctamente.";
-            return RedirectToAction("Index");
-        }
+
     }
 }
