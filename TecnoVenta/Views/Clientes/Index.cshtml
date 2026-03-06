@@ -1,0 +1,25 @@
+@model List<TecnoVenta.Models.Cliente>
+
+<h2>Lista de Clientes</h2>
+
+<a href="/Clientes/Crear">Nuevo Cliente</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Telefono</th>
+        <th>Correo</th>
+    </tr>
+
+@foreach(var c in Model)
+{
+    <tr>
+        <td>@c.Id</td>
+        <td>@c.Nombre</td>
+        <td>@c.Telefono</td>
+        <td>@c.Correo</td>
+    </tr>
+}
+
+</table>
